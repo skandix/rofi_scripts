@@ -14,9 +14,10 @@ def init_pulse():
 def detect_sinks():
     pulse = init_pulse()
     pattern = re.compile(u'description=')
+    
     for k in pulse.sink_list():
         k = str(k).split(',')
-        desc = re.sub(pattern, '', k[0]).replace("'","") #ghetto sshit
+        desc = re.sub(pattern, '', k[0]).replace("'","")
         sinks.append(desc)
 
 # programs id for setting the default output
