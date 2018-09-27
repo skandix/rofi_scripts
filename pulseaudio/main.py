@@ -1,3 +1,4 @@
+#! /home/skandix/.virtualenvs/rofi_select_default_sink-ljnGWJ5V/bin/python
 from rofi import Rofi
 import pulsectl
 import re
