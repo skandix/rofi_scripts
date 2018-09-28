@@ -13,11 +13,7 @@ def init_pulse():
 def detect_sinks():
     pulse = init_pulse()
     pattern = re.compile(u'description=')
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 314bd5739c170d85f2a92c12117a9ff37419db80
     for k in pulse.sink_list():
         k = str(k).split(',')
         desc = re.sub(pattern, '', k[0]).replace("'","")
@@ -45,7 +41,7 @@ def set_default_output(key):
         pulse.sink_input_move((ids), key)
 
 if __name__ ==  '__main__':
-    detect_sinks()
+detect_sinks()
     key, index = rofi_select()
     set_default_output(key)
 
