@@ -41,7 +41,7 @@ def set_default_output(key):
         pulse.sink_input_move((ids), key)
 
 if __name__ ==  '__main__':
-detect_sinks()
+    detect_sinks()
     key, index = rofi_select()
     set_default_output(key)
 
