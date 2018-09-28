@@ -6,7 +6,6 @@ import re
 r = Rofi()
 sinks =  []
 
-# init pulseaudio
 def init_pulse():
     return pulsectl.Pulse('rofi_sinks')
 
@@ -14,6 +13,7 @@ def init_pulse():
 def detect_sinks():
     pulse = init_pulse()
     pattern = re.compile(u'description=')
+
     for k in pulse.sink_list():
         k = str(k).split(',')
         desc = re.sub(pattern, '', k[0]).replace("'","") #ghetto sshit
@@ -31,15 +31,14 @@ def get_sink_inputs():
 
 # select outputs from rofi, return index to set_default_output
 def rofi_select():
-    outputs = r.select('Pick a sink', sinks)
-    return (outputs)
+    return r.select('Pick a sink', sinks)
 
+# move all active inputs from current output to the one that's choose with rofi
 def set_default_output(key):
     pulse = init_pulse()
-    key = int(key)
-    for ids in  get_sink_inputs():
-        # pactl move-sink-input prod_id index_sink
-        (pulse.sink_input_move(ids, key))
+
+    for ids in get_sink_inputs():
+        pulse.sink_input_move((ids), key)
 
 if __name__ ==  '__main__':
     detect_sinks()
