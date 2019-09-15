@@ -1,4 +1,6 @@
-#! /home/skandix/.virtualenvs/rofi_select_default_sink-ljnGWJ5V/bin/python
+#! /home/skandix/.local/share/virtualenvs/pulseaudio-CZoqxHDT/bin/python
+
+
 from rofi import Rofi
 import pulsectl
 import re
@@ -14,10 +16,10 @@ def detect_sinks():
     pulse = init_pulse()
     pattern = re.compile('description=')
 
-    for k in pulse.sink_list():
-        k = str(k).split(',')
-        desc = re.sub(pattern, '', k[0]).replace("'","")
-        index = int(k[1].replace(' index=', ''))
+    for sink in pulse.sink_list():
+        sink = str(k).split(',')
+        desc = re.sub(pattern, '', sink[0]).replace("'","")
+        index = int(sink[1].replace(' index=', ''))
         sinks.update({index:desc})
 
 # programs id for setting the default output
@@ -25,9 +27,9 @@ def get_sink_inputs():
     pulse = init_pulse()
     pattern = re.compile('index=')
 
-    for k in (pulse.sink_input_list()):
-        k = str(k).split(',')
-        sink_inputs = re.sub(pattern, '', k[0]).replace("'","")
+    for sink in (pulse.sink_input_list()):
+        sink = str(k).split(',')
+        sink_inputs = re.sub(pattern, '', sink[0]).replace("'","")
         yield int(sink_inputs)
 
 # select outputs from rofi, return index to set_default_output
@@ -43,9 +45,9 @@ def set_default_output(key):
         pulse.sink_input_move((ids), key)
 
 def name2id(rofi_index):
-    for k,v in enumerate(sinks.items()):
-        if rofi_index == k:
-            return (v[0])
+    for key, value in enumerate(sinks.items()):
+        if rofi_index == key:
+            return (value[0])
 
 if __name__ ==  '__main__':
     detect_sinks()
