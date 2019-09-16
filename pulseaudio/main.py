@@ -17,7 +17,7 @@ def detect_sinks():
     pattern = re.compile('description=')
 
     for sink in pulse.sink_list():
-        sink = str(k).split(',')
+        sink = str(sink).split(',')
         desc = re.sub(pattern, '', sink[0]).replace("'","")
         index = int(sink[1].replace(' index=', ''))
         sinks.update({index:desc})
@@ -28,7 +28,7 @@ def get_sink_inputs():
     pattern = re.compile('index=')
 
     for sink in (pulse.sink_input_list()):
-        sink = str(k).split(',')
+        sink = str(sink).split(',')
         sink_inputs = re.sub(pattern, '', sink[0]).replace("'","")
         yield int(sink_inputs)
 
