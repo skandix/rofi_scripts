@@ -1,4 +1,4 @@
-#! /home/skandix/.local/share/virtualenvs/pulseaudio-CZoqxHDT/bin/python
+#! /usr/bin/env python
 
 
 from rofi import Rofi
